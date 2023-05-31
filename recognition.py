@@ -42,11 +42,25 @@ class FaceRecognition:
         self.known_face_names = []
         self.known_face_encodings = []
         self.encode_faces()
+        
+    
+    def update_faces(self, image):
+        face_image = face_recognition.load_image_file(f"{FACE_PATH}/{image}")
+        
+        if not face_recognition.face_encodings(face_image):
+            print(f"Failed to recognize {image}, skipping")
+            return
+        
+        face_encoding = face_recognition.face_encodings(face_image)[0]
+        print(f"Adding {image}")
+
+        self.known_face_encodings.append(face_encoding)
+        self.known_face_names.append(image)
 
 
 
     def save_image(self, frame, name):
-        cv2.imwrite(f'{SAVE_PATH}/{name}.jpg', frame) 
+        cv2.imwrite(f'{SAVE_PATH}/{name}{IMAGE_FORMAT}', frame) 
 
 
 
@@ -63,7 +77,8 @@ class FaceRecognition:
                     print(name)
                 else:
                     self.save_image(frame, name)
-                    self.reencode_faces()
+                    # self.reencode_faces()
+                    self.update_faces(f'{name}{IMAGE_FORMAT}')
                     break
         return True
 
@@ -98,11 +113,10 @@ class FaceRecognition:
             self.process_frame(frame)
         self.process_current_frame = not self.process_current_frame
 
-
     def process_frame(self, frame):
         small_frame = cv2.resize(frame, (0, 0), fx=1/SCALE_SIZE, fy=1/SCALE_SIZE)
 
-        # Convert the image from BGR color (which OpenCV uses) to RGB color (which face_recognition uses)
+        # convert cv2 bgr to rgb
         rgb_small_frame = small_frame[:, :, ::-1]
 
         # Find all the faces and face encodings in the current frame of video
@@ -148,9 +162,3 @@ class FaceRecognition:
             cv2.putText(frame, name, (left + 6, bottom - 6), CV2_DUPLEX, 0.8, BGR_RED, 1)
 
         cv2.imshow('Face Recognition', frame)
-
-
-
-if __name__ == '__main__':
-    fr = FaceRecognition()
-    fr.run_recognition()
