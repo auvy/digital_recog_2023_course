@@ -3,8 +3,14 @@ import cv2
 FACE_PATH = 'faces'
 SAVE_PATH = FACE_PATH
 
-KEY_QUIT = 'q'
-KEY_SAVE = 'g'
+ENCODE_PATH = 'encodings'
+
+KEY_QUIT   = 'q'
+KEY_SAVE   = 'g'
+KEY_RELOAD = 'r'
+KEY_EXPORT = 'e'
+KEY_IMPORT = 'i'
+KEY_CLEAR  = 'c'
 
 # dividing on it can speed up recognition
 SCALE_SIZE = 4
@@ -20,5 +26,8 @@ BGR_BLACK = (0,0,0)
 
 CV2_DUPLEX = cv2.FONT_HERSHEY_DUPLEX
 
+CAMERA_INDEX = 0
 
 IMAGE_FORMAT = '.jpg'
+
+LOAD_OPTION = 'JSON'
