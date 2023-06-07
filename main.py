@@ -1,4 +1,4 @@
-from recognition import FaceRecognition
+from app import FaceRecognition
 
 fr = FaceRecognition()
 fr.run()

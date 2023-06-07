@@ -12,8 +12,11 @@ KEY_EXPORT = 'e'
 KEY_IMPORT = 'i'
 KEY_CLEAR  = 'c'
 
-# dividing on it can speed up recognition
+# recognition parameters
+# downscaling by SCALE_SIZE helps speed up process
 SCALE_SIZE = 4
+# brightness, percentage, helps recognize
+BRIGHTNESS = 20
 
 # forbidden symbols for windows filenames
 FORBIDDEN_CHARACTERS = [" ", "<", ">", '"', "/", "\\", "|", "?", "*"]
@@ -30,4 +33,6 @@ CAMERA_INDEX = 0
 
 IMAGE_FORMAT = '.jpg'
 
-LOAD_OPTION = 'JSON'
+LOAD_OPTION = 'IMAGE'
+
+UI_PATH = 'ui/frontalface.xml'
